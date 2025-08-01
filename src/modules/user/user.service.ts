@@ -43,8 +43,9 @@ const updateUser = async (userId: string, payload: Partial<IUser>, decodedToken:
      * email - can not update
      * name, phone, password address
      * password - re hashing
-     *  only admin  - role, isDeleted...
+     *  only admin superadmin - role, isDeleted...
      * 
+     * promoting to superadmin - superadmin
      */
 
     if (payload.role) {
@@ -52,13 +53,13 @@ const updateUser = async (userId: string, payload: Partial<IUser>, decodedToken:
             throw new AppError(httpStatus.FORBIDDEN, "You are not authorized");
         }
 
-        if (decodedToken.role === Role.ADMIN) {
+        if (payload.role === Role.SUPER_ADMIN && decodedToken.role === Role.ADMIN) {
             throw new AppError(httpStatus.FORBIDDEN, "You are not authorized");
         }
     }
 
     if (payload.isActive || payload.isDeleted || payload.isVerified) {
-        if (decodedToken.role === Role. SENDER || decodedToken.role === Role.RECEIVER) {
+        if (decodedToken.role === Role.SENDER || decodedToken.role === Role.RECEIVER) {
             throw new AppError(httpStatus.FORBIDDEN, "You are not authorized");
         }
     }

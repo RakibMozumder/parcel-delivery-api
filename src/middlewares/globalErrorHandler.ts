@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express"
 import { envVars } from "../config/env"
 import AppError from "../errorHelpers/AppError"
-
+/* eslint-disable @typescript-eslint/no-unused-vars */
 export const globalErrorHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
 
     let statusCode = 500
