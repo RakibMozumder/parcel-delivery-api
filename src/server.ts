@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import app from "./app";
 import { envVars } from "./config/env";
 
+
 let server: Server;
 
 
@@ -20,7 +21,10 @@ const startServer = async () => {
     }
 }
 
-startServer()
+(async () => {
+    await startServer()
+    
+})()
 
 process.on("SIGTERM", () => {
     console.log("SIGTERM signal recieved... Server shutting down..");
