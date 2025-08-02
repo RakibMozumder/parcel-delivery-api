@@ -7,6 +7,11 @@ export enum Role {
     RECEIVER = "RECEIVER"
 }
 
+//auth providers
+/**
+ * email, password 
+ * google authentication
+ */
 
 export interface IAuthProvider {
     provider: "google" | "credentials";  // "Google", "Credential"
@@ -17,17 +22,6 @@ export enum IsActive {
     ACTIVE = "ACTIVE",
     INACTIVE = "INACTIVE",
     BLOCKED = "BLOCKED"
-}
-
-//auth providers
-/**
- * email, password 
- * google authentication
- */
-
-export interface IAuthProvider {
-    provider: "google" | "credentials";  // "Google", "Credential"
-    providerId: string;
 }
 
 export interface IUser {
