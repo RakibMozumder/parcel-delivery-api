@@ -27,7 +27,7 @@ app.use("/api/v1", router)
 
 app.get("/", (req: Request, res: Response) => {
     res.status(200).json({
-        message: "Welcome Parcel API"
+        message: "Welcome to Tour Management System Backend"
     })
 })
 

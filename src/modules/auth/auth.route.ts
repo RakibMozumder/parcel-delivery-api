@@ -1,4 +1,3 @@
-import { Router } from "express";
 import { NextFunction, Request, Response, Router } from "express";
 import passport from "passport";
 import { checkAuth } from "../../middlewares/checkAuth";
