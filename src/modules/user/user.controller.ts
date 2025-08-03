@@ -69,6 +69,8 @@ const updateUser = catchAsync(async (req: Request, res: Response, next: NextFunc
 const getAllUsers = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const result = await UserServices.getAllUsers();
 
+    
+
     // res.status(httpStatus.OK).json({
     //     success: true,
     //     message: "All Users Retrieved Successfully",

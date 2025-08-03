@@ -5,12 +5,12 @@ import { PARCEL_STATUS_VALUES } from './parcel.constant'; // Import from the new
 
 const createParcelZodSchema = z.object({
   body: z.object({
-    senderId: z.string({ required_error: 'Sender ID is required' }),
-    receiverId: z.string({ required_error: 'Receiver ID is required' }),
+    senderId: z.string({ error: 'Sender ID is required' }),
+    receiverId: z.string({ error: 'Receiver ID is required' }),
     
     parcelDetails: z.object({
-      type: z.string({ required_error: 'Parcel type is required' }),
-      weight: z.number({ required_error: 'Parcel weight is required' }).min(0.1, 'Weight must be greater than 0'),
+      type: z.string({ error: 'Parcel type is required' }),
+      weight: z.number({ error: 'Parcel weight is required' }).min(0.1, 'Weight must be greater than 0'),
       dimensions: z.object({
         width: z.number().min(0, 'Width cannot be negative'),
         height: z.number().min(0, 'Height cannot be negative'),
@@ -18,7 +18,7 @@ const createParcelZodSchema = z.object({
       }).optional(),
     }),
     
-    fee: z.number({ required_error: 'Delivery fee is required' }).min(0, 'Fee cannot be negative').optional(),
+    fee: z.number({ error: 'Delivery fee is required' }).min(0, 'Fee cannot be negative')
   }),
 });
 

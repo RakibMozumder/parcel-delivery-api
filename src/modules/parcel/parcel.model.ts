@@ -1,7 +1,7 @@
 // src/modules/parcel/parcel.model.ts
 
 import { Schema, model } from 'mongoose';
-import { IParcel, ITrackingEvent, IParcelDocument } from './parcel.interface'; // Import the new type
+import { ITrackingEvent, IParcelDocument } from './parcel.interface'; // Import the new type
 import { PARCEL_STATUS_VALUES } from './parcel.constant';
 
 

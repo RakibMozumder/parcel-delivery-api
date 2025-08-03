@@ -2,8 +2,6 @@ import express from 'express';
 import { ParcelController } from './parcel.controller';
 import { checkAuth } from "../../middlewares/checkAuth"; // Placeholder for your auth middleware
 import { Role } from "../user/user.interface"; // Placeholder for your user roles
-import { validateRequest } from "../../middlewares/validateRequest"; // Placeholder for your validation middleware
-import { ParcelValidation } from './parcel.validation';
 
 const router = express.Router();
 
