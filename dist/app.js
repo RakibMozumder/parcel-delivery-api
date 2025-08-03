@@ -3,7 +3,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-// src/app.ts
 const cors_1 = __importDefault(require("cors"));
 const express_1 = __importDefault(require("express"));
 const globalErrorHandler_1 = require("./middlewares/globalErrorHandler");
@@ -32,7 +31,7 @@ app.use("/api/v1", routes_1.router);
 // 4. Define your root endpoint.
 app.get("/", (req, res) => {
     res.status(200).json({
-        message: "Welcome to Tour Management System Backend"
+        message: "Welcome to Parcel Delivery System Backend API"
     });
 });
 // 5. Place error-handling middleware at the very end.

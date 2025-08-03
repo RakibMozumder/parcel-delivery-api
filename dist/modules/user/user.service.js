@@ -37,14 +37,18 @@ const createUser = (payload) => __awaiter(void 0, void 0, void 0, function* () {
         throw new AppError_1.default(http_status_codes_1.default.BAD_REQUEST, "User Already Exist");
     }
     const hashedPassword = yield bcryptjs_1.default.hash(password, Number(env_1.envVars.BCRYPT_SALT_ROUND));
-    const authProvider = { provider: "credentials", providerId: email };
+    const authProvider = {
+        provider: "credentials",
+        providerId: email,
+    };
     const user = yield user_model_1.User.create(Object.assign({ email, password: hashedPassword, auths: [authProvider] }, rest));
     return user;
 });
 const updateUser = (userId, payload, decodedToken) => __awaiter(void 0, void 0, void 0, function* () {
     // Check if the user making the request is trying to update their own profile.
     // Admins and Super Admins are exempt from this check, as they can update any user.
-    if (decodedToken.role !== user_interface_1.Role.ADMIN && decodedToken.role !== user_interface_1.Role.SUPER_ADMIN) {
+    if (decodedToken.role !== user_interface_1.Role.ADMIN &&
+        decodedToken.role !== user_interface_1.Role.SUPER_ADMIN) {
         if (decodedToken.userId !== userId) {
             throw new AppError_1.default(http_status_codes_1.default.FORBIDDEN, "You are not authorized to update this user's profile.");
         }
@@ -63,7 +67,8 @@ const updateUser = (userId, payload, decodedToken) => __awaiter(void 0, void 0, 
     }
     // ... rest of the code remains the same
     if (payload.role) {
-        if (decodedToken.role === user_interface_1.Role.SENDER || decodedToken.role === user_interface_1.Role.RECEIVER) {
+        if (decodedToken.role === user_interface_1.Role.SENDER ||
+            decodedToken.role === user_interface_1.Role.RECEIVER) {
             throw new AppError_1.default(http_status_codes_1.default.FORBIDDEN, "You are not authorized");
         }
         if (payload.role === user_interface_1.Role.SUPER_ADMIN && decodedToken.role === user_interface_1.Role.ADMIN) {
@@ -71,14 +76,18 @@ const updateUser = (userId, payload, decodedToken) => __awaiter(void 0, void 0, 
         }
     }
     if (payload.isActive || payload.isDeleted || payload.isVerified) {
-        if (decodedToken.role === user_interface_1.Role.SENDER || decodedToken.role === user_interface_1.Role.RECEIVER) {
+        if (decodedToken.role === user_interface_1.Role.SENDER ||
+            decodedToken.role === user_interface_1.Role.RECEIVER) {
             throw new AppError_1.default(http_status_codes_1.default.FORBIDDEN, "You are not authorized");
         }
     }
     if (payload.password) {
         payload.password = yield bcryptjs_1.default.hash(payload.password, env_1.envVars.BCRYPT_SALT_ROUND);
     }
-    const newUpdatedUser = yield user_model_1.User.findByIdAndUpdate(userId, payload, { new: true, runValidators: true });
+    const newUpdatedUser = yield user_model_1.User.findByIdAndUpdate(userId, payload, {
+        new: true,
+        runValidators: true,
+    });
     return newUpdatedUser;
 });
 const getAllUsers = () => __awaiter(void 0, void 0, void 0, function* () {
@@ -87,12 +96,12 @@ const getAllUsers = () => __awaiter(void 0, void 0, void 0, function* () {
     return {
         data: users,
         meta: {
-            total: totalUsers
-        }
+            total: totalUsers,
+        },
     };
 });
 exports.UserServices = {
     createUser,
     getAllUsers,
-    updateUser
+    updateUser,
 };

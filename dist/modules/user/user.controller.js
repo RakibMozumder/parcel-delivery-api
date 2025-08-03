@@ -67,23 +67,18 @@ const updateUser = (0, catchAsync_1.catchAsync)((req, res, next) => __awaiter(vo
 }));
 const getAllUsers = (0, catchAsync_1.catchAsync)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield user_service_1.UserServices.getAllUsers();
-    // res.status(httpStatus.OK).json({
-    //     success: true,
-    //     message: "All Users Retrieved Successfully",
-    //     data: users
-    // })
     (0, sendResponse_1.sendResponse)(res, {
         success: true,
-        statusCode: http_status_codes_1.default.CREATED,
-        message: "All Users Retrieved Successfully",
+        statusCode: http_status_codes_1.default.OK, // Changed to OK as it's a GET request
+        message: 'All Users Retrieved Successfully',
         data: result.data,
-        meta: result.meta
+        meta: result.meta,
     });
 }));
 // function => try-catch catch => req-res function
 exports.UserControllers = {
     createUser,
     getAllUsers,
-    updateUser
+    updateUser,
 };
 // route matching -> controller -> service -> model -> DB

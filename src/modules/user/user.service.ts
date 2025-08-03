@@ -107,11 +107,7 @@ const updateUser = async (
   return newUpdatedUser;
 };
 
-const getAllUsers = async (
-  userId: string,
-  payload: Partial<IUser>,
-  decodedToken: JwtPayload
-) => {
+const getAllUsers = async () => {
   const users = await User.find({});
   const totalUsers = await User.countDocuments();
 
