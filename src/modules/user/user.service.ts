@@ -32,11 +32,12 @@ const createUser = async (payload: Partial<IUser>) => {
 }
 
 const updateUser = async (userId: string, payload: Partial<IUser>, decodedToken: JwtPayload) => {
-
-    const ifUserExist = await User.findById(userId);
-
-    if (!ifUserExist) {
-        throw new AppError(httpStatus.NOT_FOUND, "User Not Found")
+    // Check if the user making the request is trying to update their own profile.
+    // Admins and Super Admins are exempt from this check, as they can update any user.
+    if (decodedToken.role !== Role.ADMIN && decodedToken.role !== Role.SUPER_ADMIN) {
+        if (decodedToken.userId !== userId) {
+            throw new AppError(httpStatus.FORBIDDEN, "You are not authorized to update this user's profile.");
+        }
     }
 
     /**
@@ -47,7 +48,14 @@ const updateUser = async (userId: string, payload: Partial<IUser>, decodedToken:
      * 
      * promoting to superadmin - superadmin
      */
+    const ifUserExist = await User.findById(userId);
 
+    if (!ifUserExist) {
+        throw new AppError(httpStatus.NOT_FOUND, "User Not Found")
+    }
+
+    // ... rest of the code remains the same
+    
     if (payload.role) {
         if (decodedToken.role === Role.SENDER || decodedToken.role === Role.RECEIVER) {
             throw new AppError(httpStatus.FORBIDDEN, "You are not authorized");
@@ -72,6 +80,8 @@ const updateUser = async (userId: string, payload: Partial<IUser>, decodedToken:
 
     return newUpdatedUser
 }
+
+
 
 
 const getAllUsers = async () => {
